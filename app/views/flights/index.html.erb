@@ -1,0 +1,33 @@
+<h1>Welcome</h1>
+
+<%= form_with url: '/search', method: :get do |f| %>
+  <div>
+  <%= f.label "Departure" %>
+  <%= f.select(:departure_code, @airports_options) %>
+  </div>
+  <div>
+  <%= f.label "Arrival" %>
+  <%= f.select(:arrival_code, @airports_options) %>
+  </div>
+  <div>
+  <%= f.label "Number of tickets" %>
+  <%= f.select(:num_tickets, @num_tickets_options) %>
+  </div>
+  <div>
+  <%= f.label "Date" %>
+  <%= f.select(:date, @date_options) %>
+  </div>
+  <%= f.submit "Search" %>
+<% end %>
+
+<ul>
+<% for flight in @flights %>
+  <li>
+    <p>Departure: <%= flight.departure_airport.code %></p>
+    <p>Arrival: <%= flight.arrival_airport.code %></p>
+    <p>Departure date: <%= flight.departure_time %></p>
+    <p>Duration: <%= flight.duration %> minutes</p>
+  </li>
+<% end %>
+</ul>
+

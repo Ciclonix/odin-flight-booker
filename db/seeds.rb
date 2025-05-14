@@ -12,6 +12,9 @@
   Airport.find_or_create_by!(code: code)
 end
 
-[[Airport.first.id, Airport.last.id, "2011-05-19 10:30:14", "100"]].each do |dep, arr, start, length|
+[
+  [Airport.first.id, Airport.last.id, "2016-05-19 10:30:00", "100"],
+  [Airport.last.id, Airport.first.id, "2027-05-28 12:00:05", "350"]
+].each do |dep, arr, start, length|
   Flight.find_or_create_by!(departure_airport_id: dep, arrival_airport_id: arr, departure_time: start, duration: length)
 end
