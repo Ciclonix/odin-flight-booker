@@ -1,33 +1,36 @@
 <h1>Welcome</h1>
 
-<%= form_with url: '/search', method: :get do |f| %>
+<%= form_with method: :get do |f| %>
   <div>
   <%= f.label "Departure" %>
-  <%= f.select(:departure_code, @airports_options) %>
+  <%= f.select(:departure_code, @airports_options, prompt: true) %>
   </div>
   <div>
   <%= f.label "Arrival" %>
-  <%= f.select(:arrival_code, @airports_options) %>
+  <%= f.select(:arrival_code, @airports_options, prompt: true) %>
   </div>
   <div>
   <%= f.label "Number of tickets" %>
-  <%= f.select(:num_tickets, @num_tickets_options) %>
+  <%= f.select(:num_tickets, @num_tickets_options, prompt: true) %>
   </div>
   <div>
   <%= f.label "Date" %>
-  <%= f.select(:date, @date_options) %>
+  <%= f.select(:date, @date_options, prompt: true) %>
   </div>
   <%= f.submit "Search" %>
 <% end %>
 
-<ul>
-<% for flight in @flights %>
-  <li>
-    <p>Departure: <%= flight.departure_airport.code %></p>
-    <p>Arrival: <%= flight.arrival_airport.code %></p>
-    <p>Departure date: <%= flight.departure_time %></p>
-    <p>Duration: <%= flight.duration %> minutes</p>
-  </li>
+<% if @flights.empty? %>
+  <h4>No flights found</h4>
+<% else %>
+  <ul>
+  <% for flight in @flights %>
+    <li>
+      <p>Departure: <%= flight.departure_airport.code %></p>
+      <p>Arrival: <%= flight.arrival_airport.code %></p>
+      <p>Departure date: <%= flight.departure_time %></p>
+      <p>Duration: <%= flight.duration %> minutes</p>
+    </li>
+  <% end %>
+  </ul>
 <% end %>
-</ul>
-
