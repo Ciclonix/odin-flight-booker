@@ -1,0 +1,18 @@
+<h2>
+  Currently booking flight
+  from <%= @flight.departure_airport.code %>
+  to <%= @flight.arrival_airport.code %>
+  ( ID: <%= @flight.id %> )
+</h2>
+<h3>Taking off at <%= @flight.departure_time %></h3>
+
+<%= form_with model: @booking do |f| %>
+  <% @num_tickets.times do %>
+    <%= f.fields_for @booking.passengers.build do |p| %>
+      <%= p.label :name %>
+      <%= p.text_field :name %>
+      <%= p.label :email %>
+      <%= p.text_field :email %>
+    <% end %>
+  <% end %>
+<% end %>
