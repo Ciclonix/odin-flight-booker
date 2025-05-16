@@ -23,14 +23,19 @@
 <% if @flights.empty? %>
   <h4>No flights found</h4>
 <% else %>
-  <ul>
-  <% for flight in @flights %>
-    <li>
-      <p>Departure: <%= flight.departure_airport.code %></p>
-      <p>Arrival: <%= flight.arrival_airport.code %></p>
-      <p>Departure date: <%= flight.departure_time %></p>
-      <p>Duration: <%= flight.duration %> minutes</p>
-    </li>
+  <%= form_with url: new_booking_path, method: :get do |f| %>
+    <%= f.hidden_field :num_tickets, value: params[:num_tickets] %>
+    <% for flight in @flights %>
+      <div style="display:flex">
+        <%= f.radio_button :flight_id, flight.id %>
+        <div style="margin-left:1rem">
+          <p>Departure: <%= flight.departure_airport.code %></p>
+          <p>Arrival: <%= flight.arrival_airport.code %></p>
+          <p>Departure date: <%= flight.departure_time %></p>
+          <p>Duration: <%= flight.duration %> minutes</p>
+        </div>
+      </div>
+    <% end %>
+    <%= f.submit "Select Flight" %>
   <% end %>
-  </ul>
 <% end %>

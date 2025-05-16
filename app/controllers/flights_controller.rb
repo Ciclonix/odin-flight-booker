@@ -3,7 +3,7 @@ class FlightsController < ApplicationController
     @airports_options = Airport.distinct.order(:code).map { |a| [ a.code, a.id ] }
     @num_tickets_options = (1..4)
     @date_options = Flight.distinct.pluck(:departure_time).map(&:to_date).sort
-    @flights = search_params_present? ? Flight.search(params) : []
+    @flights = search_params_present? ? Flight.search(params).order(:departure_time) : []
   end
 
   private
