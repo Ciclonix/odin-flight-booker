@@ -23,11 +23,11 @@
 <% if @flights.empty? %>
   <h4>No flights found</h4>
 <% else %>
-  <%= form_with url: new_booking_path, method: :get do |f| %>
-    <%= f.hidden_field :num_tickets, value: params[:num_tickets] %>
+  <%= form_with url: new_booking_path, method: :get do %>
+    <%= hidden_field :booking, :num_tickets, value: params[:num_tickets] %>
     <% for flight in @flights %>
       <div style="display:flex">
-        <%= f.radio_button :flight_id, flight.id %>
+        <%= radio_button :booking, :flight_id, flight.id %>
         <div style="margin-left:1rem">
           <p>Departure: <%= flight.departure_airport.code %></p>
           <p>Arrival: <%= flight.arrival_airport.code %></p>
@@ -36,6 +36,6 @@
         </div>
       </div>
     <% end %>
-    <%= f.submit "Select Flight" %>
+    <%= submit_tag("Select Flight") %>
   <% end %>
 <% end %>
